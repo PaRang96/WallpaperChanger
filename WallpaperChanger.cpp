@@ -97,5 +97,7 @@ int main()
 
 	SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, (void*)TargetFileName, SPIF_UPDATEINIFILE);
 	
+	cout << "Successfully changed wallpaper." << endl;
+
 	return 0;
 }
