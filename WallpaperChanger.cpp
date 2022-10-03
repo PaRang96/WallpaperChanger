@@ -32,13 +32,11 @@
 
 */
 
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <iostream>
 #include <Windows.h>
 #include <filesystem>
 #include <time.h>
-#include <fstream>
+#include <vector>
 
 using namespace std;
 using filesystem::directory_iterator;
@@ -76,15 +74,27 @@ int main()
 	
 	cout << RandomFile.path() << endl;
 
-	wstring wstringRandomFileName = RandomFile.path();
+	wstring wstringRandomFileName = filesystem::absolute(RandomFile);
+
+	cout << filesystem::absolute(RandomFile) << endl;
 
 	const wchar_t* TargetFileName = wstringRandomFileName.c_str();
 
-	int ret = SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, (wchar_t*)TargetFileName, SPIF_UPDATEINIFILE);
+	// first trial
+	/*
+	* the problem was character \ -> could not interpret string correctly
+	* 
+	* need to modify the string by checking if there is a character \ -> add another \
+	*/
 
-	cout << ret << endl;
+	// second trial
+	/*
+	* for test, used absolute path -> worked
+	* but at the same time, using path() api did not work as intended
+	* changed row 77 from usingg path() api to absolute() api
+	*/
 
-	cout << "Successfully changed wallpaper" << endl;
-
+	SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, (void*)TargetFileName, SPIF_UPDATEINIFILE);
+	
 	return 0;
 }
