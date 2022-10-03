@@ -47,8 +47,6 @@ using filesystem::directory_iterator;
 static const vector<string> Extensions = { ".jpg" ,".jpeg",".bmp", ".png" };
 static char FileName[10001] = { 0, };
 
-void ChangeWallpaper(wchar_t* file);
-
 int main()
 {
 	srand((unsigned int)time(NULL));
@@ -82,14 +80,11 @@ int main()
 
 	const wchar_t* TargetFileName = wstringRandomFileName.c_str();
 
+	int ret = SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, (wchar_t*)TargetFileName, SPIF_UPDATEINIFILE);
+
+	cout << ret << endl;
+
 	cout << "Successfully changed wallpaper" << endl;
 
-	ChangeWallpaper((wchar_t*)TargetFileName);
-
 	return 0;
-}
-
-void ChangeWallpaper(wchar_t* file)
-{
-	SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, file, SPIF_UPDATEINIFILE);
 }
