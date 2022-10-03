@@ -19,6 +19,15 @@ Currently, image files supported are:
 
 ############
 
+Warning:
+
+DO NOT USE IMAGE THAT DOES NOT MATCH
+WITH YOUR SCREEN RESOLUTION!!
+
+Does not guarantee the screen ratio if those images are used
+
+############
+
 End of readme
 
 version 1.0.0
